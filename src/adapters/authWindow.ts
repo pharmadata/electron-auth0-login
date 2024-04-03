@@ -1,15 +1,17 @@
 import { BrowserWindow } from 'electron';
 import qs from 'qs';
 import url from 'url';
-import { Adapter } from '../types';
+
 import { context } from '../framework';
+import { Adapter } from '../types';
 
 export const authWindow: Adapter = (config) => {
     const baseWinConfig = {
         width: 800,
         height: 800,
         alwaysOnTop: true,
-        backgroundColor: '#202020'
+        backgroundColor: '#202020',
+        show: false
     };
 
     const baseLogoutWin = {
@@ -30,6 +32,7 @@ export const authWindow: Adapter = (config) => {
                 scopes.push('offline_access');
             }
 
+            const redirect_uri = config.auth0.redirectUri ?? `https://${config.auth0.domain}/mobile`;
             const authCodeUrl = `https://${config.auth0.domain}/authorize?` + qs.stringify({
                 audience: config.auth0.audience,
                 scope: scopes.join(' '),
@@ -37,7 +40,7 @@ export const authWindow: Adapter = (config) => {
                 client_id: config.auth0.clientId,
                 code_challenge: pair.challenge,
                 code_challenge_method: 'S256',
-                redirect_uri: `https://${config.auth0.domain}/mobile`,
+                redirect_uri,
                 // Custom parameters
                 ...config.login?.authorizeParams
             });
@@ -49,12 +52,16 @@ export const authWindow: Adapter = (config) => {
                 ...config.login?.windowConfig
             });
 
-            loginWindow.webContents.on('did-navigate', (event, href) => {
+            loginWindow.webContents.on('will-redirect', (event, href) => {
                 const location = url.parse(href);
-                if (location.pathname == '/mobile') {
+                if (href.split('?')[0] == redirect_uri) {
+                    event.preventDefault();
                     const query = qs.parse(location.search || '', {ignoreQueryPrefix: true});
                     resolve(query.code);
                     loginWindow.destroy();
+                }
+                if (location.pathname == '/login') {
+                    loginWindow.show();
                 }
             });
 

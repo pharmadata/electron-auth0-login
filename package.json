@@ -1,6 +1,6 @@
 {
-  "name": "electron-auth0-login",
-  "version": "2.0.3",
+  "name": "@pharmadata/electron-auth0-login",
+  "version": "2.0.5",
   "description": "Provides Auth0 authentication services for your Electron.js application",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,27 +13,27 @@
   ],
   "author": "Jimmy Breck-McKye",
   "license": "MIT",
-  "homepage": "https://github.com/jbreckmckye/electron-auth0-login#readme",
+  "homepage": "https://github.com/pharmadata/electron-auth0-login#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jbreckmckye/electron-auth0-login.git"
+    "url": "https://github.com/pharmadata/electron-auth0-login.git"
   },
   "bugs": {
-    "url": "https://github.com/jbreckmckye/electron-auth0-login/issues"
+    "url": "https://github.com/pharmadata/electron-auth0-login/issues"
   },
   "devDependencies": {
-    "@types/keytar": "4.4.0",
+    "@types/keytar": "^4.4.2",
     "@types/node": "12.19.12",
     "@types/qs": "6.5.1",
     "@types/request": "2.47.1",
     "@types/request-promise-native": "1.0.15",
     "electron": "7.2.4",
-    "keytar": "4.4.2",
+    "keytar": "^7.9.0",
     "typescript": "4.1.3"
   },
   "dependencies": {
-    "qs": "6.5.2",
-    "got": "11.8.1"
+    "got": "11.8.1",
+    "qs": "6.5.2"
   },
   "peerDependencies": {
     "electron": "^7.1.9"

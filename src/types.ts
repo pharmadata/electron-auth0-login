@@ -1,5 +1,6 @@
 // Used for types only; this library does not bundle keytar
 import keytar from 'keytar';
+
 export type Keytar = typeof keytar;
 
 export type Operation <I, O> = (ctx: Context, input: I) => O;
@@ -55,7 +56,8 @@ export type Config = {
         clientId: string,
         domain: string,
         // This will be custom to your application, e.g. 'given_name profile'
-        scopes: string
+        scopes: string,
+        redirectUri?: string;
     },
 
     // Customise the login

@@ -1,6 +1,7 @@
 import got from 'got';
-import { Adapter } from '../types';
+
 import { context } from '../framework';
+import { Adapter } from '../types';
 
 export const authAPI: Adapter = (config) => context('authAPI', {
     /**
@@ -12,7 +13,7 @@ export const authAPI: Adapter = (config) => context('authAPI', {
             client_id: config.auth0.clientId,
             code_verifier: pair.verifier,
             code: authCode,
-            redirect_uri: `https://${config.auth0.domain}/mobile`
+            redirect_uri: config.auth0.redirectUri ?? `https://${config.auth0.domain}/mobile`
         }
     }).json(),
 
