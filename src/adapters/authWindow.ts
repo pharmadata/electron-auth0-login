@@ -60,7 +60,7 @@ export const authWindow: Adapter = (config) => {
                     resolve(query.code);
                     loginWindow.destroy();
                 }
-                if (location.pathname == '/login') {
+                if (location.pathname == '/login' || location.pathname == '/mf') {
                     loginWindow.show();
                 }
             });
